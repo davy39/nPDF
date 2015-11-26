@@ -237,16 +237,19 @@ void Viewer::scrollUp() {
         needDisplay = true;
     } else {
 	prev();
+        yPos = (bounds.y1 - bounds.y0) - height;
+        needDisplay = true;
     }
 }
 
 void Viewer::scrollDown() {
     if (yPos < (bounds.y1 - bounds.y0) - height) {
         yPos += scroll;
-        yPos = (xPos > (bounds.y1 - bounds.y0) - height)?(bounds.y1 - bounds.y0) - width:yPos;
-        needDisplay = true;
-    } else {
-	next();
+        if (yPos < (bounds.y1 - bounds.y0) - height) {
+            needDisplay = true;
+        }   else {
+	        next();
+            }
     }
 }
 
